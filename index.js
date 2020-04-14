@@ -5,12 +5,15 @@ try {
 } catch (e) { }
 
 const {MobileClient} = require('./lib/clients/mobileclient');
+const {Cipher, Format} = require('./lib/clients/mediaclient');
 const {SongAsset, LegacyFormat} = require('./lib/content/SongAsset');
 const {ImageUrl, ImageFormat} = require('./lib/content/ImageUrl');
 
 module.exports = {
     clients: {
         MobileClient,
+        Cipher,
+        Format,
     },
     content: {
         SongAsset,
