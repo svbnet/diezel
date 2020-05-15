@@ -35,40 +35,49 @@ Client for getting a song stream URL. Also a work in progress.
 # Getting started with MobileClient
 Once you have all the relevant keys:
 
-    const diezel = require('diezel');
-    const {ImageUrl, SongAsset, LegacyFormat} = diezel.content;
+    const { createWriteStream } = require('fs');
+    const { content, clients: { MobileClient } } = require('diezel');
 
-    // Create client
-    const mobileClient = new diezel.clients.MobileClient();
+    (async () => {
+        try {
+            // Create client
+            const client = new MobileClient();
 
-    // Sign in
-    const result = await mobileClient.signInWithEmail('example@gmail.com', 'password')
-    if (result) {
-        console.log('Signed in!');
-    } else {
-        console.error('Incorrect credentials!');
-    }
+            // Sign in
+            const result = await client.signInWithEmail('example@gmail.com', 'password');
 
-    // Restore session
-    const userInfo = mobileClient.userInfo;
-    // ...
-    const newClient = new diezel.clients.MobileClient(userInfo);
-    await newClient.restoreSession();
-    
-    // Get an album
-    const album = await mobileClient.getAlbum(122475762);
+            if (result) {
+                console.log('Signed in!');
+            } else {
+                console.error('Incorrect credentials!');
+            }
 
-    // Get album art URL
-    const albumArtUrl = ImageUrl.forObject(album.DATA).toString({dimensions: {width: 500, height: 500}});
+            // Restore session
+            const { userInfo } = client;
+            // ...
+            const newClient = new MobileClient(userInfo);
+            await newClient.restoreSession();
 
-    // Get song stream
-    const song = album.SONGS.data[5];
-    const stream = await SongAsset.forLegacyStream(song, LegacyFormat.MP3_128).getDecryptedStream();
+            // Get an album
+            const { DATA, SONGS } = await client.getAlbum(122475762);
 
-    // Pipe it to a file
-    const fs = require('fs');
-    const file = fs.openWriteStream('song.mp3');
-    stream.pipe(file);
+            // Content factory
+            const { ImageUrl, SongAsset, LegacyFormat } = content;
+
+            // Get album art URL
+            const albumArtUrl = new ImageUrl().forObject(DATA).toString({ dimensions: { width: 500, height: 500 } });
+
+            // Get song stream
+            const [song] = SONGS.data;
+            const stream = await SongAsset.forLegacyStream(song, LegacyFormat.MP3_128).getDecryptedStream();
+
+            // Pipe it to a file
+            const file = createWriteStream('song.mp3');
+            stream.pipe(file);
+        } catch (error) {
+            console.error(error);
+        }
+    })();
 
 # Testing
 At the moment testing requires that keys be present. Testing also requires you to create a `credentials.js` file in the `test/temp` directory, in order to avoid committing any information that could be considered proprietary or sensitive.
