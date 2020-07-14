@@ -21,5 +21,5 @@ module.exports = {
         ImageUrl,
         ImageFormat,
     },
-    setKeys: MasterKeyProvider.setKeys,
+    setKeys: keys => MasterKeyProvider.setKeys(keys),
 };
