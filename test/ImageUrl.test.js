@@ -1,4 +1,4 @@
-const {ImageFormat, ImageUrl} = require('../index').content;
+const { ImageFormat, ImageUrl } = require('../lib/diezel').content;
 const assert = require('assert');
 
 const multiObject = {

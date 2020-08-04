@@ -1,8 +1,8 @@
 {
   "name": "diezel",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "Private Deezer client for Node",
-  "main": "index.js",
+  "main": "lib/diezel.js",
   "scripts": {
     "test": "mocha \"./test/*.test.js\"",
     "testOne": "mocha"
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/svbnet/diezel.git"
   },
-  "author": "",
+  "author": "svbnet",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/svbnet/diezel/issues"

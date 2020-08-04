@@ -36,10 +36,11 @@ Client for getting a song stream URL. Also a work in progress.
 Once you have all the relevant keys:
 
     const diezel = require('diezel');
-    const {ImageUrl, SongAsset, LegacyFormat} = diezel.content;
+    const { MobileClient } = diezel.clients;
+    const { ImageUrl, SongAsset, LegacyFormat } = diezel.content;
 
     // Create client
-    const mobileClient = new diezel.clients.MobileClient();
+    const mobileClient = new MobileClient();
 
     // Sign in
     const result = await mobileClient.signInWithEmail('example@gmail.com', 'password')
@@ -52,7 +53,7 @@ Once you have all the relevant keys:
     // Restore session
     const userInfo = mobileClient.userInfo;
     // ...
-    const newClient = new diezel.clients.MobileClient(userInfo);
+    const newClient = new MobileClient(userInfo);
     await newClient.restoreSession();
     
     // Get an album
@@ -71,5 +72,5 @@ Once you have all the relevant keys:
     stream.pipe(file);
 
 # Testing
-At the moment testing requires that keys be present. Testing also requires you to create a `credentials.js` file in the `test/temp` directory, in order to avoid committing any information that could be considered proprietary or sensitive.
+Testing requires that keys be present. See `readme.md` in the `test/` directory.
 

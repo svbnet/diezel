@@ -103,5 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-keys.json
+lib/keys.json
 test/temp/
+test/credentials.js
