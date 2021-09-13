@@ -2,7 +2,7 @@
 module.exports = {
     testSong: {
         id: 797228472,
-        title: 'Like That',
+        title: 'Like That (feat. Gucci Mane)',
     },
 
     testAlbum: {
