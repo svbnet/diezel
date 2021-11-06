@@ -5,6 +5,8 @@ A library for the private Deezer API ("Gateway API") and other private APIs. By 
 You will need Node 12 or later. Simply clone the repo and run `npm install`.
 
 # Getting Started with Keys
+[See this for more info](https://gist.github.com/svbnet/b79b705a4c19d74896670c1ac7ad627e)
+
 Due to Deezer's habit of sending DMCA requests to similar repositories, the keys that are hardcoded into various Deezer platforms are not included here.
 When the library is required, it will try and load a file named `keys.json` from its directory. `keys.json` exports an object in this format:
 
