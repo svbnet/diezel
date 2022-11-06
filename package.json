@@ -1,6 +1,6 @@
 {
   "name": "diezel",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Private Deezer client for Node",
   "main": "lib/diezel.js",
   "scripts": {
@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/svbnet/diezel#readme",
   "dependencies": {
-    "axios": "^0.21.1",
-    "mocha": "^7.2.0"
+    "axios": "^1.1.3"
+  },
+  "devDependencies": {
+    "mocha": "^10.1.0"
   }
 }

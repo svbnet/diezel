@@ -7,6 +7,6 @@ module.exports = {
 
     testAlbum: {
         id: 139881992,
-        title: 'After Hours'
+        title: 'After Hours (Deluxe)'
     }
 }
