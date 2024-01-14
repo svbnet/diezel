@@ -2,7 +2,10 @@
 A library for the private Deezer API ("Gateway API") and other private APIs. By default, the library doesn't come with keys to decrypt audio streams, nor does it come with API access keys for the mobile API. You will have to find these yourself.
 
 # Installation
-You will need Node 12 or later. Simply clone the repo and run `npm install`.
+You will need Node 16 or later. Simply clone the repo and run `npm install`.
+
+## Note about OpenSSL and Node
+Node 20+ uses OpenSSL 3+, which removes Blowfish from its standard crypto providers. As songs are Blowfish-encrypted, Diezel currently uses a pure JavaScript Blowfish library if it detects OpenSSL does not have Blowfish support. This works, but performance may be worse. Passing the `NODE_OPTIONS=--openssl-legacy-provider` environment variable will enable Blowfish in OpenSSL, but be aware that this may enable security vulnerabilities.
 
 # Getting Started with Keys
 [See this for more info](https://gist.github.com/svbnet/b79b705a4c19d74896670c1ac7ad627e)

@@ -20,7 +20,7 @@ describe('SongAsset', function() {
     describe('#getDecryptedStream', function() {
         it('downloads and decrypts a media URL', function(done) {
             // NOTE: you will have to open the downloaded file and hash it manually (or check it plays properly).
-            this.timeout(0);
+            this.timeout(30000);
             const streamingAsset = SongAsset.forLegacyStream(song, SongLegacyFormat.MP3_128);
             const filePath = path.join(__dirname, 'temp', 'decrypted_stream.mp3');
             const fsStream = fs.createWriteStream(filePath, {emitClose: true});
@@ -28,8 +28,9 @@ describe('SongAsset', function() {
                 assetStream.on('finish', () => {
                     done();
                 });
+                assetStream.on('error', (err) => { done(err) });
                 assetStream.pipe(fsStream);
-            });
+            }).catch((err) => { done(err); });
         });
     });
 });
