@@ -15,15 +15,16 @@ When the library is required, it will try and load a file named `keys.json` from
 
 | Key | Explanation |
 | --- | --- |
-| `LEGACY_URL_KEY` | Private key for generating legacy URLs |
 | `TRACK_XOR_KEY` | Key used to derive a decryption key for an encrypted song |
 | `MOBILE_GW_KEY` | **(MobileClient only)** Private key for decrypting an encrypted gateway token |
 | `MOBILE_API_KEY` | **(MobileClient only)** API key for the mobile gateway API |
 
 Alternatively you can set the keys as soon as the library is required:
 
+```js
     const diezel = require('diezel');
     diezel.setKeys(/* key object */);
+```
 
 # Which Client Should I Use?
 For core Deezer services, Diezel implements a "mobile" client (as implemented in the Deezer mobile apps) and a "web" client (as implemented on the desktop site). Both clients have their advantages and disadvantages in terms of key availability.
@@ -40,6 +41,7 @@ Client for getting a song stream URL. Also a work in progress.
 # Getting started with MobileClient
 Once you have all the relevant keys:
 
+```js
     const diezel = require('diezel');
     const { MobileClient } = diezel.clients;
     const { ImageUrl, SongAsset, LegacyFormat } = diezel.content;
@@ -69,12 +71,14 @@ Once you have all the relevant keys:
 
     // Get song stream
     const song = album.SONGS.data[5];
-    const stream = await SongAsset.forLegacyStream(song, LegacyFormat.MP3_128).getDecryptedStream();
+    const stream = await newClient.mediaClient.getSongStreams([song], ['MP3_128']);
+    const decryptedStream = await stream.getDecryptedStream();
 
     // Pipe it to a file
     const fs = require('fs');
     const file = fs.openWriteStream('song.mp3');
-    stream.pipe(file);
+    decryptedStream.pipe(file);
+```
 
 # Testing
 Testing requires that keys be present. See `readme.md` in the `test/` directory.

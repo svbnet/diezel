@@ -1,6 +1,6 @@
 {
   "name": "diezel",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Private Deezer client for Node",
   "main": "lib/diezel.js",
   "scripts": {

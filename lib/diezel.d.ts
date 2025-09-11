@@ -93,13 +93,19 @@ export declare interface ImageUrlOptions {
     format?: diezel.content.ImageFormat;
 }
 
+export declare interface GetSongStreamsOptions {
+    type: diezel.content.SongPresentationType;
+    cipher: diezel.content.SongCipher;
+    firstUrlOnly: boolean;
+}
+
 export declare namespace diezel {
     const version: string;
     function setKeys(keys: ConstantKeys): void;
 
     namespace clients {
         class MediaClient {
-            getMediaStreamInfo(song: Song, format: content.SongFormat, cipher?: content.SongCipher): content.SongAsset;
+            getSongStreams(songs: Song[], format: content.SongFormat[], options?: GetSongStreamsOptions): Record<Id, content.SongAsset | content.SongAsset[]>;
         }
 
         class MobileClient {
@@ -133,6 +139,11 @@ export declare namespace diezel {
             JPEG = 'jpg',
         }
 
+        enum SongPresentationType {
+            PREVIEW = 'PREVIEW',
+            FULL = 'FULL'
+        }
+
         enum SongCipher {
             NONE = 'NONE',
             BF_CBC_STRIPE = 'BF_CBC_STRIPE'
@@ -152,23 +163,6 @@ export declare namespace diezel {
             SBC_256 = "SBC_256"
         }
 
-        enum SongLegacyFormat {
-            MP3_MISC = 0,
-            MP3_128 = 1,
-            MP3_320 = 3,
-            MP3_256 = 5,
-            AAC_64 = 6,
-            MP3_192 = 7,
-            AAC_96 = 8,
-            FLAC = 9,
-            MP3_64 = 10,
-            MP3_32 = 11,
-            SBC = 12,
-            MP4_RA1 = 13,
-            MP4_RA2 = 14,
-            MP4_RA3 = 15,
-        }
-
         class ImageUrl {
             static readonly MAX_SIZE: ImageSize;
             static readonly BASE_URL: string;
@@ -179,7 +173,6 @@ export declare namespace diezel {
 
         class SongAsset {
             private constructor();
-            static forLegacyStream(song: Song, format: SongLegacyFormat): SongAsset;
             createTransformer(): Transform;
             getDecryptedStream(): Promise<Transform>;
         }
