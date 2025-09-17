@@ -1,7 +1,6 @@
 import { Transform } from "stream";
 
 export declare interface ConstantKeys {
-    LEGACY_URL_KEY?: string;
     TRACK_XOR_KEY: string;
     MOBILE_GW_KEY?: string;
     MOBILE_API_KEY?: string;

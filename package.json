@@ -1,8 +1,9 @@
 {
   "name": "diezel",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Private Deezer client for Node",
   "main": "lib/diezel.js",
+  "keywords": ["api", "graphql", "gql", "music", "rest", "deezer", "client"],
   "scripts": {
     "test": "mocha \"./test/*.test.js\"",
     "testOne": "mocha"
@@ -22,6 +23,7 @@
     "egoroof-blowfish": "^4.0.2"
   },
   "devDependencies": {
+    "@sinonjs/fake-timers": "^14.0.0",
     "@types/node": "^24.3.1",
     "mocha": "^11.7.2",
     "typescript": "^5.9.2"
