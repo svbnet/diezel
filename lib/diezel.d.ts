@@ -1,4 +1,5 @@
 import { Transform } from "stream";
+import { DiezelError } from "./errors";
 
 export declare interface ConstantKeys {
     TRACK_XOR_KEY: string;
@@ -103,8 +104,28 @@ export declare namespace diezel {
     function setKeys(keys: ConstantKeys): void;
 
     namespace clients {
+        namespace authToken {
+            class AuthTokenError extends DiezelError { }
+            class AuthToken {
+                jwtToken?: string;
+                refreshToken?: string;
+                decodedToken?: object;
+                needsRefresh: boolean;
+                userId?: string;
+
+                static getAnonymousToken(): Promise<AuthToken>;
+                static getTokenFromArl(arl: string): Promise<AuthToken>;
+
+                refresh(): Promise<void>;
+                ensure(): Promise<string>;
+                logout(): Promise<void>;
+            }
+        }
+
         class MediaClient {
-            getSongStreams(songs: Song[], format: content.SongFormat[], options?: GetSongStreamsOptions): Record<Id, content.SongAsset | content.SongAsset[]>;
+            constructor(licenseToken: string, mediaUrl: string);
+            getSongStreams(songs: Song[], format: content.SongFormat[], options?: GetSongStreamsOptions): Promise<Record<Id, content.SongAsset | content.SongAsset[]>>;
+            getUrl(body: object): Promise<object[]>;
         }
 
         class MobileClient {
@@ -114,7 +135,10 @@ export declare namespace diezel {
             userInfo: UserInfo;
             sid: string;
             mediaClient: MediaClient;
+            retrieveAuthToken(): Promise<diezel.clients.authToken.AuthToken>;
             signInWithEmail(email: string, password: string): Promise<boolean>;
+            signInWithUserInfo(userInfo: UserInfo): Promise<void>;
+            signOut(): Promise<void>;
             restoreSession(): Promise<void>;
 
             getSong(id: Id): Promise<TypedEntity<EntityType.Song>>;

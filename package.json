@@ -1,6 +1,6 @@
 {
   "name": "diezel",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Private Deezer client for Node",
   "main": "lib/diezel.js",
   "keywords": ["api", "graphql", "gql", "music", "rest", "deezer", "client"],
